@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, ScrollView, Switch, TouchableOpacity } from "react-native";
 import Slider from '@react-native-community/slider';
+import {getProfiles} from '../api';
 
 // Note: Tabs/tab navigator at the top
 const SettingsScreen = (props) => {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    getProfiles(setLoading).then((data) => {
+      console.log("API Data:", data)
+    })
+  }, [loading]);
   const { navigation, params } = props;
   return (
     <View style={styles.container}>
